@@ -4,8 +4,8 @@ For CIS 3260 M3, we implemented Surakata, a Ruby-based implementation of an Indo
 
 ## Team Members
 
-Justin Klein
-Jacob Wadsworth
-Lucas Jarrett
-Harir Al-Rubaye
-Megh Bhavsar
+Justin Klein<br />
+Jacob Wadsworth<br />
+Lucas Jarrett<br />
+Harir Al-Rubaye<br />
+Megh Bhavsar<br />
