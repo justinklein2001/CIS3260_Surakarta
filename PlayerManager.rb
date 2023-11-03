@@ -7,6 +7,10 @@ class PlayerManager
       @players = players
       @current_player = @players[0]
     end
+    
+    def get_current_player
+      @current_player
+    end
 
     def swap_player
       @current_player = (@current_player == Player::WHITE) ? Player::BLACK : Player::WHITE
