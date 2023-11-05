@@ -60,6 +60,7 @@ class UserInterface
                     if res == true
 
                         display_successful_move(from, to)
+                        # move is done, break out of loop
                         move_done = true
 
                     else
