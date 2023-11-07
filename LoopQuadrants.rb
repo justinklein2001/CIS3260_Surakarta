@@ -6,12 +6,15 @@ class LoopQuadrant
     @loop_entrypoints = loop_entrypoints
   end
 
-  def can_reach_location(start, target, board)
+  def can_reach_location(start, end, board)
+
   end
 
   def can_reach_end_of_quadrant(from)
+
   end
 
   def can_reach_start_of_quadrant(from)
+    
   end
 end

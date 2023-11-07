@@ -5,6 +5,7 @@ class Loop
     @quadrants = [LoopQuadrant.new([], []), LoopQuadrant.new([], []), LoopQuadrant.new([], []), LoopQuadrant.new([], [])]
   end
   
-  def find_looping_path_to_piece(start, target)
+  def find_looping_path_to_piece(start, end)
+    
   end
 end    
