@@ -1,18 +1,19 @@
-class MoveValidator
-    attr_accessor :board
-    def initialize(board)
-        @board = board
-    end
+require './load_surakarta.rb'
 
-    def validate_move(from, to)
+class MoveValidator
+
+
+    def validate_move(from, to, board)
         fx, fy = from.x, from.y
         tx, ty = to.x, to.y
         loop = Loop.new
 
-        if @board.get_piece(from).nil?
+        if board.get_piece(from).nil?
             return true
         end 
-        if from in @board.get_open_adjacent_locations(to) or loop.find_looping_path_to_piece(from, to)
+        
+        open_spots = board.get_open_adjacent_locations(to)
+        if ((from in open_spots) or (loop.find_looping_path_to_piece(from, to) == true))
             return true
         end
         false

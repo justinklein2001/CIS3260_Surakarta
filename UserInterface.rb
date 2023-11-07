@@ -1,18 +1,19 @@
+require './Coordinate.rb'
+
 # Author: Justin Klein
 # Date: 2023-11-05
 # Class Name: UserInteface.rb
 class UserInterface
     
     # design calls for game to be here, that's wrong
-    def initialize(game, validator)
-        @game = game
+    def initialize(validator)
         @validator = validator
 
-        print("\u{1F44B} Welcome to Surakarta")
+        print("\u{1F44B} Welcome to Surakarta\n")
     end
 
     # this should not be here
-    def make_move(player)
+    def make_move(game, player)
 
         move_done = false
 
@@ -55,7 +56,7 @@ class UserInterface
                     to = Coordinate.new(x,y)
 
                     # call game function
-                    res = @game.make_move(to, from)
+                    res = game.make_move(to, from)
                     
                     if res == true
 
@@ -91,7 +92,7 @@ class UserInterface
 
     # Displays a message to the user indicating an invalid input error.
     def display_invalid_input_error()
-        print("\u274C Invalid input entered! Please enter a valid move")
+        print("\u274C Invalid input entered! Please enter a valid move\n")
     end
 
     # Displays a message to the user indicating an invalid move error.

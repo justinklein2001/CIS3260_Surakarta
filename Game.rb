@@ -6,9 +6,9 @@ require 'Board'
 
 class Game
   def initialize(ui, player_manager)
-    @board = Board.new
-    @ui = ui
     @player_manager = player_manager
+    @board = Board.new(@player_manager)
+    @ui = ui
   end
 
   def start
