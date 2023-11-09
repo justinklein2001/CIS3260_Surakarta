@@ -4,11 +4,11 @@ class Board
 
 	attr_accessor :board, :validator
 	
-	def initialize(player_manager)
-		@board = (0..6).map { |i| (0..6).map { |j| Square.new(Coordinate.new(i,j)) } }
-		@validator = MoveValidator.new()
-		initialize_board(player_manager)
-		@player_manager = player_manager
+	def initialize()
+		# TODO - dont know what loops are supposed to be
+		@board = (0..5).map { |i| (0..5).map { |j| Square.new(Coordinate.new(i,j), []) } }
+		@validator = MoveValidator.new(self)
+		initialize_board()
 	end
 
 	def get_square(location)
@@ -56,33 +56,51 @@ class Board
 	end	
 
 	def get_board_string
-		board_string = ""
+		board_string = "   1 2 3 4 5 6\n |-------------\n"
+		row_index = 0
 		@board.each do |row|
+			square_index = 0
 			row.each do |square|
+
+				if square_index == 0
+					board_string += (row_index+1).to_s + "| "
+				end
+
 				piece = square.piece
 				if piece.nil?
 					board_string += ". "
 				else
-					board_string += piece.to_s + " "
+					if (piece.owner.to_s == "black")
+						player_piece = "0"
+					else
+						player_piece = "X"
+					end
+					board_string += player_piece + " "
 				end
+				square_index += 1
 			end
 			board_string += "\n"
+			row_index += 1
 		end
+		board_string += "\nOuter Loops: 3,1 <--> 1,3 / 4,1 <--> 6,3 / 6,4 <--> 4,6 / 1,4 <--> 3,6\n"
+		board_string += "Inner Loops: 2,1 <--> 1,2 / 5,1 <--> 6,2 / 6,5 <--> 5,6 / 1,5 <--> 2,6\n\n"
 		board_string
 	end
 
 	def initialize_board()
 		(0..1).each do |x|
 			(0..5).each do |y|
-				sq = Square.new(Coordinate.new(x,y))
-				sq.set_piece(Piece.new(@player_manager.players[0]))
+				# TODO - don't know what loops is supposed to be
+				sq = Square.new(Coordinate.new(x,y), [])
+				sq.set_piece(Piece.new(Player::WHITE, sq))
 				@board[x][y] = sq
 			end
 		end
 		(4..5).each do |x|
 			(0..5).each do |y|
-				sq = Square.new(x, y)
-				sq.set_piece(Piece.new(Player.new(@player_manager.players[1])))
+				# TODO - don't know what loops is supposed to be
+				sq = Square.new(Coordinate.new(x,y), [])
+				sq.set_piece(Piece.new(Player::BLACK, sq))
 				@board[x][y] = sq
 			end
 		end
@@ -90,7 +108,7 @@ class Board
 
 	def reset_pieces()
 		@board.clear
-		initialize_board(@player_manager)
+		initialize_board()
 	end
 
 	def player_pieces_left(player)

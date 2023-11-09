@@ -1,9 +1,9 @@
 class Square
   attr_accessor :location, :loops, :piece
 
-  def initialize(location)
+  def initialize(location, loops)
     @location = location
-    @loops = [] #should this be in the constructor?
+    @loops = loops
     @piece = nil
   end
 

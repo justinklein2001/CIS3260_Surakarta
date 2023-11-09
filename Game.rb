@@ -1,20 +1,20 @@
 # Harir AL-Rubaye
 # Date: 2023-11-06
-
-$LOAD_PATH << '.'
-require 'Board'
+require './load_surakarta.rb'
 
 class Game
-  def initialize(ui, player_manager)
+  attr_accessor :player_manager, :board
+  
+  def initialize(player_manager)
     @player_manager = player_manager
-    @board = Board.new(@player_manager)
-    @ui = ui
+    @board = Board.new()
+    validator = UserInterfaceValidator.new()
+    @ui = UserInterface.new(validator, self)
   end
 
   def start
     @board.initialize_board
-    @player_manager.current_player = @player_manager.players[0]
-    @ui.make_move(@player_manager.current_player)
+    @ui.make_move()
   end
 
   def make_move(from, to)

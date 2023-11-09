@@ -6,15 +6,19 @@ require './Coordinate.rb'
 class UserInterface
     
     # design calls for game to be here, that's wrong
-    def initialize(validator)
+    def initialize(validator, game)
         @validator = validator
-
-        print("\u{1F44B} Welcome to Surakarta\n")
+        @game = game
+        print("\u{1F44B} Welcome to Surakarta\n\n")
     end
 
     # this should not be here
-    def make_move(game, player)
+    def make_move()
+        
+        print("Current Board:\n\n")
+        print(@game.board.get_board_string)
 
+        player = @game.player_manager.get_current_player
         move_done = false
 
         while move_done == false
@@ -56,7 +60,7 @@ class UserInterface
                     to = Coordinate.new(x,y)
 
                     # call game function
-                    res = game.make_move(to, from)
+                    res = @game.make_move(to, from)
                     
                     if res == true
 

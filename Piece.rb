@@ -1,9 +1,9 @@
 class Piece
   attr_accessor :current_square, :owner
 
-  def initialize(owner)
+  def initialize(owner, current_square)
     @owner = owner
-    @current_square = nil #should this be in the constructor?
+    @current_square = current_square
   end
 
   def get_owner
