@@ -13,7 +13,7 @@ class LoopQuadrant
     return false
   end
 
-  def can_reach_location(start, end, board)
+  def can_reach_location(start, to_end, board)
     open_locations = board.get_open_adjacent_locations(start)
     open_entry_points = []
 
