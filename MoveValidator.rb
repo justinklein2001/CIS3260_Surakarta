@@ -112,16 +112,21 @@ class MoveValidator
         ]))
         outer_loops = Loop.new(loop_quadrants)
 
-        if @board.get_piece(from).nil?
+        if @board.get_piece(to).nil?
             return true
-        end 
+        end
         open_spots = @board.get_open_adjacent_locations(from)
         # open_spots.each do |spot|
         #     puts("here", spot.get_coordinate.join(', '))
         # end
-        if ((open_spots.include? from) or (inner_loops.find_looping_path_to_piece(from, to, @board, @board.get_piece(from).get_owner) == true) or (outer_loops.find_looping_path_to_piece(from, to, @board, @board.get_piece(from).get_owner) == true))
+        puts "move validator status"
+        puts open_spots.include? to
+        puts inner_loops.find_looping_path_to_piece(from, to, @board, @board.get_piece(from).get_owner)
+        puts outer_loops.find_looping_path_to_piece(from, to, @board, @board.get_piece(from).get_owner)
+        puts "bruh end"
+        if ((open_spots.include? to) or (inner_loops.find_looping_path_to_piece(from, to, @board, @board.get_piece(from).get_owner) == true) or (outer_loops.find_looping_path_to_piece(from, to, @board, @board.get_piece(from).get_owner) == true))
             return true
         end
-        false
+        true
     end
 end

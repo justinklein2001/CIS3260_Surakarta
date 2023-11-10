@@ -24,10 +24,10 @@ class Board
 		fr_square = get_square(from)
 		to_square = get_square(to)
 
-		piece_to_be_moved = to_square.piece
-		puts piece_to_be_moved
-		if piece_to_be_moved.nil?  #|| @validator.validate_move(from, to) == false
-			return true
+		piece_to_be_moved = fr_square.piece
+		puts piece_to_be_moved.nil?
+		if piece_to_be_moved.nil?  || @validator.validate_move(from, to) == false
+			return false
 		end
 
 		to_square.piece = piece_to_be_moved

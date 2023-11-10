@@ -94,7 +94,7 @@ class UserInterface
 
     # Displays a message to the user indicating a successful move.
     def display_successful_move(from, to)
-        print("✓ Move successfully made. Piece at " + from.get_coordinate.join(', ') + "moved to " + to.get_coordinate.join(', ') + "\n")
+        print("✓ Move successfully made. Piece at " + [from.get_coordinate[0] + 1, from.get_coordinate[1] + 1].join(', ') + " moved to " + [to.get_coordinate[0] + 1, to.get_coordinate[1] + 1].join(', ') + "\n")
     end
 
     # Displays a message to the user indicating an invalid input error.
