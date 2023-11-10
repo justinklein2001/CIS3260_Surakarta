@@ -7,6 +7,10 @@ class Square
     @piece = nil
   end
 
+  def get_locations
+    @location
+  end
+
   def get_piece
     @piece
   end

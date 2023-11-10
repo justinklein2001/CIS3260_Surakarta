@@ -6,6 +6,8 @@ class LoopQuadrant
     @loop_entrypoints = loop_entrypoints
   end
 
+  # Returns a boolean indicating whether the given coordinate is
+  # included in the quadrant's coordinates
   def is_piece_in_quadrant(coordinate)
     if @loop_coordinates.include?(coordinate)
       return true
@@ -13,36 +15,109 @@ class LoopQuadrant
     return false
   end
 
-  def can_reach_location(start, to_end, board)
-    open_locations = board.get_open_adjacent_locations(start)
-    open_entry_points = []
+  # Returns a boolean indicating whether 2 points in the
+  # loopQuadrant have the loop between them
+  def is_loop_between(from, to)
+    is_passed_from = false
+    is_passed_to = false
+    entrypoints_passed = 0
 
-    # find an entry point that is open
-    for entry in @loop_entrypoints
-      for location in open_locations
-        if entry == location
-          open_entry_points.push(location)
+    # check to see if from or to are in the first spot in the loop
+    if @loop_coordinate.first == from
+      is_passed_from = true
+    elsif @loop_coordinate.first == to
+      is_passed_to = true
+    end
+    
+    # loop through every square in the quadrant in order
+    @loop_coordinates.each do |coordinate|
+
+      # if only 1 of the locations has been passed
+      if is_passed_from ^ is_passed_to
+        # check if coordinate is an entrypoint
+        if @loop_entrypoints.include?(coordinate)
+          entrypoints_passed += 1
         end
+      end
+
+      # check to see if from or two are passed
+      if coordinate == from
+        is_passed_from = true
+      elsif coordinate == to
+        is_passed_to = true
+      end
+
+      # if both entrypoints passed while in between from and to
+      if entrypoints_passed >= 2
+        return true
       end
     end
 
-    # loop through @loop_coordinates and try to find if end is contained
-    for entry in open_entry_points
-      for coordinate in @loop_coordinates
-        if entry == coordinate
-          # How do we know if this entry is before or after going through the loop???
-          return true
-        end
-      end
-    end
+    # if loop was not passed inbetween points then return false
     return false
   end
 
-  def can_reach_end_of_quadrant(from)
-    # This doesn't have access to the board so how do we know if there is a collision?
+  # Returns the square indicating the coordinate of the first collision with
+  # a piece, or the end of the quadrant moving forwards through the quadrant.
+  # Used to see if the full quadrant can be
+  # navigated through without a collision.
+  def can_reach_end_of_quadrant(from, board)
+    is_piece_moving = false
+
+    # loop through every square in the quadrant in order
+    @loop_coordinates.each do |coordinate|
+      
+      # only look for a collision once we've pases the "from" piece
+      if is_piece_moving
+
+        # check if there is a collision with a piece
+        if board.get_square(coordinate).is_empty?
+          return board.get_square(coordinate)
+        end
+
+      else
+
+        # check to see if the loop has reached the "from piece"
+        if coordinate == from
+          is_piece_moving = true
+        end
+
+      end
+    end
+
+    # if no collision found then end of quadrant reached
+    return @loop_coordinates.last
   end
 
-  def can_reach_start_of_quadrant(from)
-    # This doesn't have access to the board so how do we know if there is a collision?
+  # Returns the square indicating the coordinate of the first collision with
+  # a piece, or the start of the quadrant moving backwards through the quadrant.
+  # Used to see if the full quadrant can be
+  # navigated through without a collision.
+  def can_reach_start_of_quadrant(from, board)
+    is_piece_moving = false
+
+    # loop through every square in the quadrant in reverse order
+    @loop_coordinates.reverse_each do |coordinate|
+
+      # only look for a collision once we've pases the "from" piece
+      if is_piece_moving
+
+       # check if there is a collision with a piece
+       if board.get_square(coordinate).is_empty?
+        return board.get_square(coordinate)
+        end
+
+      else
+
+        # check to see if the loop has reached the "from piece"
+        if coordinate == from
+          is_piece_moving = true
+        end
+
+      end
+    end
+
+    # if no collision found then start of quadrant reached
+    return board.get_square(@loop_coordinates.first)
   end
 end
