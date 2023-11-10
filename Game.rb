@@ -4,7 +4,7 @@ require './load_surakarta.rb'
 
 class Game
   attr_accessor :player_manager, :board
-  
+
   def initialize(player_manager)
     @player_manager = player_manager
     @board = Board.new()
@@ -13,7 +13,6 @@ class Game
   end
 
   def start
-    @board.initialize_board
     @ui.make_move()
   end
 
@@ -31,7 +30,7 @@ class Game
         true
       end
     else
-      @ui.display_invalid_move_error
+
       false
     end
   end

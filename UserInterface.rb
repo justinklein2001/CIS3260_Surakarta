@@ -4,7 +4,7 @@ require './Coordinate.rb'
 # Date: 2023-11-05
 # Class Name: UserInteface.rb
 class UserInterface
-    
+
     # design calls for game to be here, that's wrong
     def initialize(validator, game)
         @validator = validator
@@ -14,7 +14,7 @@ class UserInterface
 
     # this should not be here
     def make_move()
-        
+
         print("Current Board:\n\n")
         print(@game.board.get_board_string)
 
@@ -22,7 +22,7 @@ class UserInterface
         move_done = false
 
         while move_done == false
-        
+
             if player == "BLACK"
                 player_print = "Black player (0)"
             else
@@ -34,36 +34,37 @@ class UserInterface
             # get user input
             input = gets
             input = input.chomp # remove newline
-            
+
             # input is valid
             if @validator.input_is_coordinate(input) == true
-                
+
                 x, y = input.split(',')
                 x = x.to_i
                 y = y.to_i
                 x = x - 1
                 y = y - 1
-                # init from coordinate 
-                to = Coordinate.new(x,y)
+                # init from coordinate
+                from = Coordinate.new(x,y)
 
                 print(player_print + ", Please select a location to move to (x,y):")
-                
+
                 # get user input
                 input = gets
                 input = input.chomp # remove newline
-                
+
                 if @validator.input_is_coordinate(input) == true
                     x, y = input.split(',')
                     x = x.to_i
                     y = y.to_i
                     x = x - 1
                     y = y - 1
-                    # init to coordinate 
-                    from = Coordinate.new(x,y)
+                    # init to coordinate
+                    to = Coordinate.new(x,y)
 
                     # call game function
-                    res = @game.make_move(to, from)
-                    
+
+                    res = @game.make_move(from,to)
+
                     if res == true
 
                         display_successful_move(from, to)
@@ -106,5 +107,3 @@ class UserInterface
         print("\u274C Invalid move entered! Please enter a valid move.\n")
     end
 end
-
-
