@@ -41,9 +41,10 @@ class UserInterface
                 x, y = input.split(',')
                 x = x.to_i
                 y = y.to_i
-
+                x = x - 1
+                y = y - 1
                 # init from coordinate 
-                from = Coordinate.new(x,y)
+                to = Coordinate.new(x,y)
 
                 print(player_print + ", Please select a location to move to (x,y):")
                 
@@ -55,9 +56,10 @@ class UserInterface
                     x, y = input.split(',')
                     x = x.to_i
                     y = y.to_i
-                    
+                    x = x - 1
+                    y = y - 1
                     # init to coordinate 
-                    to = Coordinate.new(x,y)
+                    from = Coordinate.new(x,y)
 
                     # call game function
                     res = @game.make_move(to, from)

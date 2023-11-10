@@ -23,7 +23,7 @@ class Square
     @piece = nil
   end
 
-  def is_empty?
+  def is_empty
     @piece.nil?
   end
 

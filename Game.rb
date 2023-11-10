@@ -18,7 +18,10 @@ class Game
   end
 
   def make_move(from, to)
+    # puts @board.move_piece(from, to)
+    # puts from.get_coordinate.join(', '), to.get_coordinate.join(', ')
     if @board.move_piece(from, to)
+
       @ui.display_successful_move(from, to)
       winner = check_for_winner
       if winner

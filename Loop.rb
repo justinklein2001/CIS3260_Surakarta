@@ -15,7 +15,7 @@ class Loop
     # find the starting quadrant
     starting_quadrant = 4
     for i in 0..3
-      if quadrants.index(i).is_piece_in_quadrant(from)
+      if quadrants[i].is_piece_in_quadrant(from)
         starting_quadrant = i
         break
       end
