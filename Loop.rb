@@ -13,12 +13,15 @@ class Loop
     quadrants = @quadrants
 
     # find the starting quadrant
-    starting_quadrant = 0
-    for i in 1..4
+    starting_quadrant = 4
+    for i in 0..3
       if quadrants.index(i).is_piece_in_quadrant(from)
         i = starting_quadrant
         break
       end
+    end
+    if starting_quadrant == 4
+      return false
     end
 
     # update the quadrant array to start with the starting quadrant
