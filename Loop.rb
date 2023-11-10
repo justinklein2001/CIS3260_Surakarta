@@ -16,10 +16,11 @@ class Loop
     starting_quadrant = 4
     for i in 0..3
       if quadrants.index(i).is_piece_in_quadrant(from)
-        i = starting_quadrant
+        starting_quadrant = i
         break
       end
     end
+    # return false if from is not in loop
     if starting_quadrant == 4
       return false
     end
