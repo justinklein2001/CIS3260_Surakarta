@@ -6,6 +6,13 @@ class LoopQuadrant
     @loop_entrypoints = loop_entrypoints
   end
 
+  def is_piece_in_quadrant(coordinate)
+    if @loop_coordinates.include?(coordinate)
+      return true
+    end
+    return false
+  end
+
   def can_reach_location(start, end, board)
     open_locations = board.get_open_adjacent_locations(start)
     open_entry_points = []
