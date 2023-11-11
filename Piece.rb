@@ -1,3 +1,4 @@
+
 class Piece
   attr_accessor :current_square, :owner
 
@@ -17,4 +18,5 @@ class Piece
   def move_to(square)
     @current_square = square
   end
+
 end

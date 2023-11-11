@@ -15,71 +15,72 @@ class UserInterface
     # this should not be here
     def make_move()
 
-        print("Current Board:\n\n")
-        print(@game.board.get_board_string)
-
-        player = @game.player_manager.get_current_player
         move_done = false
+        while @game.check_for_winner != false
+            
+            while move_done == false
+                player = @game.player_manager.get_current_player
+                print("Current Board:\n\n")
+                print(@game.board.get_board_string)
+                if player == :black
+                    player_print = "Black player (0)"
+                else
+                    player_print = "White player (X)"
+                end
 
-        while move_done == false
-
-            if player == "BLACK"
-                player_print = "Black player (0)"
-            else
-                player_print = "White player (X)"
-            end
-
-            print(player_print + ", Please select a piece to move (x,y):")
-
-            # get user input
-            input = gets
-            input = input.chomp # remove newline
-
-            # input is valid
-            if @validator.input_is_coordinate(input) == true
-
-                x, y = input.split(',')
-                x = x.to_i
-                y = y.to_i
-                x = x - 1
-                y = y - 1
-                # init from coordinate
-                from = Coordinate.new(x,y)
-
-                print(player_print + ", Please select a location to move to (x,y):")
+                print(player_print + ", Please select a piece to move (x,y):")
 
                 # get user input
                 input = gets
                 input = input.chomp # remove newline
 
+                # input is valid
                 if @validator.input_is_coordinate(input) == true
+
                     x, y = input.split(',')
                     x = x.to_i
                     y = y.to_i
                     x = x - 1
                     y = y - 1
-                    # init to coordinate
-                    to = Coordinate.new(x,y)
+                    # init from coordinate
+                    from = Coordinate.new(x,y)
 
-                    # call game function
+                    print(player_print + ", Please select a location to move to (x,y):")
 
-                    res = @game.make_move(from,to)
+                    # get user input
+                    input = gets
+                    input = input.chomp # remove newline
 
-                    if res == true
+                    if @validator.input_is_coordinate(input) == true
+                        x, y = input.split(',')
+                        x = x.to_i
+                        y = y.to_i
+                        x = x - 1
+                        y = y - 1
+                        # init to coordinate
+                        to = Coordinate.new(x,y)
 
-                        display_successful_move(from, to)
-                        # move is done, break out of loop
-                        move_done = true
+                        # call game function
 
+                        res = @game.make_move(from,to)
+
+                        if res == true
+
+                            display_successful_move(from, to)
+                            # move is done, break out of loop
+                            move_done = true
+                        else
+                            display_invalid_move_error()
+                        end
                     else
-                        display_invalid_move_error()
+                        display_invalid_input_error()
                     end
                 else
                     display_invalid_input_error()
                 end
-            else
-                display_invalid_input_error()
             end
+            move_done = false
+            
         end
     end
 

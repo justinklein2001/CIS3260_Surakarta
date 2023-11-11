@@ -17,21 +17,18 @@ class Game
   end
 
   def make_move(from, to)
-    # puts @board.move_piece(from, to)
-    # puts from.get_coordinate.join(', '), to.get_coordinate.join(', ')
-    if @board.move_piece(from, to)
-
-      @ui.display_successful_move(from, to)
-      winner = check_for_winner
-      if winner
-        @ui.display_winner(winner)
+    if @player_manager.get_current_player != @board.get_square(Coordinate.new(from.x, from.y))
+      if @board.move_piece(from, to)
+        winner = check_for_winner
+        if winner
+          @ui.display_winner(winner)
+        else
+          @player_manager.swap_player
+          true
+        end
       else
-        @player_manager.swap_player
-        true
+        false
       end
-    else
-
-      false
     end
   end
 

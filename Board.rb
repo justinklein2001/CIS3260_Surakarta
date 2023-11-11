@@ -12,7 +12,7 @@ class Board
 
 	def get_square(location)
 		x, y = location.x, location.y
-		@board[x][y]
+		@board[y][x]
 	end
 
 	def get_piece(location)
@@ -23,13 +23,10 @@ class Board
 	def move_piece(from, to)
 		fr_square = get_square(from)
 		to_square = get_square(to)
-
 		piece_to_be_moved = fr_square.piece
-		puts piece_to_be_moved.nil?
 		if piece_to_be_moved.nil?  || @validator.validate_move(from, to) == false
 			return false
 		end
-
 		to_square.piece = piece_to_be_moved
 		fr_square.piece = nil
 		return true
@@ -38,20 +35,19 @@ class Board
 	def get_open_adjacent_locations(location)
 		x, y = location.x, location.y
 		adjacent_locations = []
-
-		[-1, 0, 1].each do |cx|
-			[-1, 0, 1].each do |cy|
-				nx, ny = x + cx, y + cy
+		[-1, 0, 1].each do |cy|
+			[-1, 0, 1].each do |cx|
+				nx = x + cx
+				ny = y + cy
 				if nx.between?(0, 5) && ny.between?(0, 5)
 					adj_coordinate = Coordinate.new(nx, ny)
-					if get_square(adj_coordinate).is_empty
+					if get_square(adj_coordinate).get_piece == nil
 						adjacent_locations.append(adj_coordinate)
 					end
 
 				end
 			end
 		end
-
 		adjacent_locations
 
 	end
@@ -90,27 +86,27 @@ class Board
 
 	def initialize_board
 		board = Array.new(6){Array.new(6)}
-		(0..1).each do |x|
-			(0..5).each do |y|
+		(0..1).each do |y|
+			(0..5).each do |x|
 				# TODO - don't know what loops is supposed to be
 				sq = Square.new(Coordinate.new(x,y), [])
 				sq.set_piece(Piece.new(Player::WHITE, sq))
-				board[x][y] = sq
+				board[y][x] = sq
 			end
 		end
-		(2..3).each do |x|
-			(0..5).each do |y|
+		(2..3).each do |y|
+			(0..5).each do |x|
 				sq = Square.new(Coordinate.new(x,y), [])
 				sq.remove_piece
-				board[x][y] = sq
+				board[y][x] = sq
 			end
 		end
-		(4..5).each do |x|
-			(0..5).each do |y|
+		(4..5).each do |y|
+			(0..5).each do |x|
 				# TODO - don't know what loops is supposed to be
 				sq = Square.new(Coordinate.new(x,y), [])
 				sq.set_piece(Piece.new(Player::BLACK, sq))
-				board[x][y] = sq
+				board[y][x] = sq
 			end
 		end
 		return board
@@ -123,11 +119,13 @@ class Board
 
 	def player_pieces_left(player)
 		count = 0
-		(0..5).each do |x|
-			(0..5).each do |y|
-				sq = get_square(Location.new(x, y))
-				if sq.piece.get_owner() == player
-					count += 1
+		(0..5).each do |y|
+			(0..5).each do |x|
+				sq = get_square(Coordinate.new(x,y))
+				if !sq.get_piece.nil?
+					if sq.get_piece.get_owner == player
+						count += 1
+					end
 				end
 			end
 		end
