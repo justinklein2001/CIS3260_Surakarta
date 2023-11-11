@@ -45,7 +45,7 @@ class Loop
       end
 
       # if end of quadrant move on to next one
-      if end_square.is_empty?
+      if end_square.is_empty
         # set start to be begining of next quadrant
         start = end_square.get_location
         next
@@ -72,7 +72,7 @@ class Loop
     has_gone_through_loop = false
 
     # Reverse all elements except for the first index
-    quadrantss[1..-1].reverse! if reverse_direction
+    quadrants[1..-1].reverse!
 
     # look through quadrants in reverse order
     quadrants.each do |quadrant|
@@ -86,7 +86,7 @@ class Loop
       end
 
       # if end of quadrant move on to next one
-      if end_square.is_empty?
+      if end_square.is_empty
         # set start to be begining of next quadrant
         start = end_square.get_location
         next

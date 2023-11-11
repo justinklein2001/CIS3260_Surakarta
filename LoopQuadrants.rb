@@ -9,8 +9,10 @@ class LoopQuadrant
   # Returns a boolean indicating whether the given coordinate is
   # included in the quadrant's coordinates
   def is_piece_in_quadrant(coordinate)
-    if @loop_coordinates.include?(coordinate)
-      return true
+    @loop_coordinates.each do |coordinate2|
+      if coordinate.x == coordinate2.x && coordinate.y == coordinate2.y
+        return true
+      end
     end
     return false
   end
@@ -23,9 +25,9 @@ class LoopQuadrant
     entrypoints_passed = 0
 
     # check to see if from or to are in the first spot in the loop
-    if @loop_coordinate.first == from
+    if @loop_coordinates.first == from
       is_passed_from = true
-    elsif @loop_coordinate.first == to
+    elsif @loop_coordinates.first == to
       is_passed_to = true
     end
     
@@ -35,8 +37,10 @@ class LoopQuadrant
       # if only 1 of the locations has been passed
       if is_passed_from ^ is_passed_to
         # check if coordinate is an entrypoint
-        if @loop_entrypoints.include?(coordinate)
-          entrypoints_passed += 1
+        @loop_entrypoints.each do |entrypoints|
+          if coordinate.x == entrypoints.x && coordinate.y == entrypoints.y
+            entrypoints_passed += 1
+          end
         end
       end
 
@@ -71,7 +75,7 @@ class LoopQuadrant
       if is_piece_moving
 
         # check if there is a collision with a piece
-        if board.get_square(coordinate).is_empty?
+        if !board.get_square(coordinate).is_empty
           return board.get_square(coordinate)
         end
 
@@ -86,7 +90,7 @@ class LoopQuadrant
     end
 
     # if no collision found then end of quadrant reached
-    return @loop_coordinates.last
+    return board.get_square(@loop_coordinates.last)
   end
 
   # Returns the square indicating the coordinate of the first collision with
@@ -102,9 +106,9 @@ class LoopQuadrant
       # only look for a collision once we've pases the "from" piece
       if is_piece_moving
 
-       # check if there is a collision with a piece
-       if board.get_square(coordinate).is_empty?
-        return board.get_square(coordinate)
+        # check if there is a collision with a piece
+        if !board.get_square(coordinate).is_empty
+          return board.get_square(coordinate)
         end
 
       else

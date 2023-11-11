@@ -7,6 +7,7 @@ class Board
 	def initialize()
 		# TODO - dont know what loops are supposed to be
 		@board = initialize_board
+		@loops = initialize_loops
 		@validator = MoveValidator.new(self)
 	end
 
@@ -86,7 +87,8 @@ class Board
 
 	def initialize_board
 		board = Array.new(6){Array.new(6)}
-		(0..1).each do |y|
+		# (0..1).each do |y|
+		(0..0).each do |y|
 			(0..5).each do |x|
 				# TODO - don't know what loops is supposed to be
 				sq = Square.new(Coordinate.new(x,y), [])
@@ -94,7 +96,8 @@ class Board
 				board[y][x] = sq
 			end
 		end
-		(2..3).each do |y|
+		# (2..3).each do |y|
+		(1..3).each do |y|
 			(0..5).each do |x|
 				sq = Square.new(Coordinate.new(x,y), [])
 				sq.remove_piece
@@ -132,4 +135,114 @@ class Board
 		count
 	end
 
+	def initialize_loops
+		loops = []
+
+		loop_quadrants = []
+        loop_quadrants.push(LoopQuadrant.new([
+            Coordinate.new(1,1),
+            Coordinate.new(1,0),
+            Coordinate.new(0,1),
+            Coordinate.new(1,1),
+            Coordinate.new(2,1),
+            Coordinate.new(3,1),
+            Coordinate.new(4,1)
+        ],[
+            Coordinate.new(1,0),
+            Coordinate.new(0,1)
+        ]))
+        loop_quadrants.push(LoopQuadrant.new([
+            Coordinate.new(4,1),
+            Coordinate.new(5,1),
+            Coordinate.new(4,0),
+            Coordinate.new(4,1),
+            Coordinate.new(4,2),
+            Coordinate.new(4,3),
+            Coordinate.new(4,4)
+        ],[
+            Coordinate.new(5,1),
+            Coordinate.new(4,0)
+        ]))
+        loop_quadrants.push(LoopQuadrant.new([
+            Coordinate.new(4,4),
+            Coordinate.new(4,5),
+            Coordinate.new(5,4),
+            Coordinate.new(4,4),
+            Coordinate.new(3,4),
+            Coordinate.new(2,4),
+            Coordinate.new(1,4)
+        ],[
+            Coordinate.new(4,5),
+            Coordinate.new(5,4)
+        ]))
+        loop_quadrants.push(LoopQuadrant.new([
+            Coordinate.new(1,4),
+            Coordinate.new(0,4),
+            Coordinate.new(1,5),
+            Coordinate.new(1,4),
+            Coordinate.new(1,3),
+            Coordinate.new(1,2),
+            Coordinate.new(1,1)
+        ],[
+            Coordinate.new(0,4),
+            Coordinate.new(1,5)
+        ]))
+        loops.push(Loop.new(loop_quadrants))
+
+        loop_quadrants = []
+        loop_quadrants.push(LoopQuadrant.new([
+            Coordinate.new(2,2),
+            Coordinate.new(2,1),
+            Coordinate.new(2,0),
+            Coordinate.new(0,2),
+            Coordinate.new(1,2),
+            Coordinate.new(2,2),
+            Coordinate.new(3,2)
+        ],[
+            Coordinate.new(2,0),
+            Coordinate.new(0,2)
+        ]))
+        loop_quadrants.push(LoopQuadrant.new([
+            Coordinate.new(3,2),
+            Coordinate.new(4,2),
+            Coordinate.new(5,2),
+            Coordinate.new(3,0),
+            Coordinate.new(3,1),
+            Coordinate.new(3,2),
+            Coordinate.new(3,3)
+        ],[
+            Coordinate.new(5,2),
+            Coordinate.new(3,0)
+        ]))
+        loop_quadrants.push(LoopQuadrant.new([
+            Coordinate.new(3,3),
+            Coordinate.new(3,4),
+            Coordinate.new(3,5),
+            Coordinate.new(5,3),
+            Coordinate.new(4,3),
+            Coordinate.new(3,3),
+            Coordinate.new(2,3)
+        ],[
+            Coordinate.new(3,5),
+            Coordinate.new(5,3)
+        ]))
+        loop_quadrants.push(LoopQuadrant.new([
+            Coordinate.new(2,3),
+            Coordinate.new(1,3),
+            Coordinate.new(0,3),
+            Coordinate.new(2,5),
+            Coordinate.new(2,4),
+            Coordinate.new(2,3),
+            Coordinate.new(2,2)
+        ],[
+            Coordinate.new(0,3),
+            Coordinate.new(2,5)
+        ]))
+        loops.push(Loop.new(loop_quadrants))
+		return loops
+	end
+
+	def get_loops
+		@loops
+	end
 end

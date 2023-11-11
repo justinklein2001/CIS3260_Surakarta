@@ -3,11 +3,10 @@ class Square
 
   def initialize(location, loops)
     @location = location
-    @loops = loops
     @piece = nil
   end
 
-  def get_locations
+  def get_location
     @location
   end
 
@@ -25,9 +24,5 @@ class Square
 
   def is_empty
     @piece.nil?
-  end
-
-  def get_loops
-    @loops
   end
 end
