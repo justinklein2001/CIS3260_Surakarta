@@ -18,8 +18,7 @@ class MoveValidator
                 return true
             end
         end
-        # if ((@board.get_loops[0].find_looping_path_to_piece(from, to, @board, @board.get_piece(from).get_owner) == true) or (@board.get_loops[1].find_looping_path_to_piece(from, to, @board, @board.get_piece(from).get_owner) == true))
-        if ((@board.get_loops[1].find_looping_path_to_piece(from, to, @board, @board.get_piece(from).get_owner) == true))
+        if ((@board.get_loops[0].find_looping_path_to_piece(from, to, @board, @board.get_piece(from).get_owner) == true) or (@board.get_loops[1].find_looping_path_to_piece(from, to, @board, @board.get_piece(from).get_owner) == true))
             return true
         end
        

@@ -89,23 +89,21 @@ class Board
 		board = Array.new(6){Array.new(6)}
 		(0..1).each do |y|
 			(0..5).each do |x|
-				# TODO - don't know what loops is supposed to be
-				sq = Square.new(Coordinate.new(x,y), [])
+				sq = Square.new(Coordinate.new(x,y))
 				sq.set_piece(Piece.new(Player::WHITE, sq))
 				board[y][x] = sq
 			end
 		end
 		(2..3).each do |y|
 			(0..5).each do |x|
-				sq = Square.new(Coordinate.new(x,y), [])
+				sq = Square.new(Coordinate.new(x,y))
 				sq.remove_piece
 				board[y][x] = sq
 			end
 		end
 		(4..5).each do |y|
 			(0..5).each do |x|
-				# TODO - don't know what loops is supposed to be
-				sq = Square.new(Coordinate.new(x,y), [])
+				sq = Square.new(Coordinate.new(x,y))
 				sq.set_piece(Piece.new(Player::BLACK, sq))
 				board[y][x] = sq
 			end

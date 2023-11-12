@@ -69,12 +69,16 @@ class LoopQuadrant
 
     # loop through every square in the quadrant in order
     @loop_coordinates.each do |coordinate|
+
+      print "coordinate: #{coordinate.x}, #{coordinate.y}\n"
+      print "from: #{from.x}, #{from.y}\n"
+      print "square: #{board.get_square(coordinate).is_empty}\n"
       
       # only look for a collision once we've pases the "from" piece
       if is_piece_moving
 
         # check if there is a collision with a piece
-        if !board.get_square(coordinate).is_empty
+        if !board.get_square(coordinate).is_empty && !(coordinate.x == from.x && coordinate.y == from.y)
           return board.get_square(coordinate)
         end
 
@@ -89,6 +93,9 @@ class LoopQuadrant
     end
 
     # if no collision found then end of quadrant reached
+    if @loop_coordinates.last.x == from.x && @loop_coordinates.last.y == from.y
+      return Square.new(Coordinate.new(from.x, from.y))
+    end
     return board.get_square(@loop_coordinates.last)
   end
 
@@ -105,7 +112,10 @@ class LoopQuadrant
       if is_piece_moving
 
         # check if there is a collision with a piece
-        if !board.get_square(coordinate).is_empty
+        # print "coordinate: #{coordinate.x}, #{coordinate.y}\n"
+        # print "from: #{from.x}, #{from.y}\n"
+        # print "square: #{board.get_square(coordinate).is_empty}\n"
+        if !board.get_square(coordinate).is_empty && !(coordinate.x == from.x && coordinate.y == from.y)
           return board.get_square(coordinate)
         end
 
@@ -120,6 +130,9 @@ class LoopQuadrant
     end
 
     # if no collision found then start of quadrant reached
+    if @loop_coordinates.first.x == from.x && @loop_coordinates.first.y == from.y
+      return Square.new(Coordinate.new(from.x, from.y))
+    end
     return board.get_square(@loop_coordinates.first)
   end
 end

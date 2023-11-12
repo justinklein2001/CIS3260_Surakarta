@@ -1,7 +1,7 @@
 class Square
   attr_accessor :location, :loops, :piece
 
-  def initialize(location, loops)
+  def initialize(location)
     @location = location
     @piece = nil
   end
