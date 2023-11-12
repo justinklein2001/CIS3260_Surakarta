@@ -32,12 +32,14 @@ class Loop
     start = from
 
     has_gone_through_loop = false
+    is_first_loop = false
 
     # look through quadrants in order
     quadrants.each do |quadrant|
 
       # get last square hit in quadrant
-      end_square = quadrant.can_reach_end_of_quadrant(start, board)
+      end_square = quadrant.can_reach_end_of_quadrant(from, board, is_first_loop)
+      is_first_loop = true
 
       # check if piece goes through a loop
       if quadrant.is_loop_between(start, end_square.get_location)
@@ -68,17 +70,20 @@ class Loop
       end
     end
 
-    # reset has_gone_through_loop
+    # reset variables
     has_gone_through_loop = false
+    is_first_loop = false
+    start = from
 
     # Reverse all elements except for the first index
-    quadrants[1..-1].reverse!
+    quadrants[1..3] = quadrants[1..3].reverse
 
     # look through quadrants in reverse order
     quadrants.each do |quadrant|
 
       # get last square hit in quadrant
-      end_square = quadrant.can_reach_start_of_quadrant(start, board)
+      end_square = quadrant.can_reach_start_of_quadrant(from, board, is_first_loop)
+      is_first_loop = true
 
       # check if piece goes through a loop
       if quadrant.is_loop_between(start, end_square.get_location)
@@ -100,7 +105,7 @@ class Loop
       elsif end_square.get_piece.get_owner != player
 
         # if end location is goal location return true and piece has gone through a loop
-        if end_square.get_location == to && has_gone_through_loop
+        if end_square.get_location.x == to.x && end_square.get_location.y == to.y && has_gone_through_loop
           return true
         else
           # if not then stop looking

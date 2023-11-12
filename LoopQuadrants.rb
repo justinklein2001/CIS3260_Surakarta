@@ -25,9 +25,9 @@ class LoopQuadrant
     entrypoints_passed = 0
 
     # check to see if from or to are in the first spot in the loop
-    if @loop_coordinates.first == from
+    if @loop_coordinates.first.x == from.x &&  @loop_coordinates.first.y == from.y
       is_passed_from = true
-    elsif @loop_coordinates.first == to
+    elsif @loop_coordinates.first.x == to.x && @loop_coordinates.first.y == to.y
       is_passed_to = true
     end
     
@@ -45,9 +45,9 @@ class LoopQuadrant
       end
 
       # check to see if from or two are passed
-      if coordinate == from
+      if @loop_coordinates.first.x == from.x &&  @loop_coordinates.first.y == from.y
         is_passed_from = true
-      elsif coordinate == to
+      elsif @loop_coordinates.first.x == to.x && @loop_coordinates.first.y == to.y
         is_passed_to = true
       end
 
@@ -65,8 +65,7 @@ class LoopQuadrant
   # a piece, or the end of the quadrant moving forwards through the quadrant.
   # Used to see if the full quadrant can be
   # navigated through without a collision.
-  def can_reach_end_of_quadrant(from, board)
-    is_piece_moving = false
+  def can_reach_end_of_quadrant(from, board, is_piece_moving)
 
     # loop through every square in the quadrant in order
     @loop_coordinates.each do |coordinate|
@@ -82,7 +81,7 @@ class LoopQuadrant
       else
 
         # check to see if the loop has reached the "from piece"
-        if coordinate == from
+        if coordinate.x == from.x && coordinate.y == from.y
           is_piece_moving = true
         end
 
@@ -97,8 +96,7 @@ class LoopQuadrant
   # a piece, or the start of the quadrant moving backwards through the quadrant.
   # Used to see if the full quadrant can be
   # navigated through without a collision.
-  def can_reach_start_of_quadrant(from, board)
-    is_piece_moving = false
+  def can_reach_start_of_quadrant(from, board, is_piece_moving)
 
     # loop through every square in the quadrant in reverse order
     @loop_coordinates.reverse_each do |coordinate|
@@ -114,7 +112,7 @@ class LoopQuadrant
       else
 
         # check to see if the loop has reached the "from piece"
-        if coordinate == from
+        if coordinate.x == from.x && coordinate.y == from.y
           is_piece_moving = true
         end
 
