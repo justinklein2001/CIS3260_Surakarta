@@ -17,7 +17,7 @@ class UserInterface
 
         move_done = false
         while @game.check_for_winner != false
-            
+
             while move_done == false
                 player = @game.player_manager.get_current_player
                 print("Current Board:\n\n")
@@ -32,11 +32,12 @@ class UserInterface
 
                 # get user input
                 input = gets
-                input = input.chomp # remove newline
-
+                if input.nil? || input.empty? || input.strip.empty?
+                    display_invalid_input_error()
+                    move_done = false
                 # input is valid
-                if @validator.input_is_coordinate(input) == true
-
+                elsif @validator.input_is_coordinate(input) == true
+                    input = input.chomp # remove newline
                     x, y = input.split(',')
                     x = x.to_i
                     y = y.to_i
@@ -49,9 +50,12 @@ class UserInterface
 
                     # get user input
                     input = gets
-                    input = input.chomp # remove newline
-
-                    if @validator.input_is_coordinate(input) == true
+                    if input.nil? || input.empty? || input.strip.empty?
+                        display_invalid_input_error()
+                        move_done = false
+                    # input is valid
+                    elsif @validator.input_is_coordinate(input) == true
+                        input = input.chomp # remove newline
                         x, y = input.split(',')
                         x = x.to_i
                         y = y.to_i
@@ -80,7 +84,7 @@ class UserInterface
                 end
             end
             move_done = false
-            
+
         end
     end
 

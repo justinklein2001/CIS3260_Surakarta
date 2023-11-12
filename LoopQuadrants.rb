@@ -30,7 +30,7 @@ class LoopQuadrant
     elsif @loop_coordinates.first.x == to.x && @loop_coordinates.first.y == to.y
       is_passed_to = true
     end
-    
+
     # loop through every square in the quadrant in order
     @loop_coordinates.each do |coordinate|
 
@@ -70,10 +70,7 @@ class LoopQuadrant
     # loop through every square in the quadrant in order
     @loop_coordinates.each do |coordinate|
 
-      print "coordinate: #{coordinate.x}, #{coordinate.y}\n"
-      print "from: #{from.x}, #{from.y}\n"
-      print "square: #{board.get_square(coordinate).is_empty}\n"
-      
+
       # only look for a collision once we've pases the "from" piece
       if is_piece_moving
 
@@ -112,9 +109,6 @@ class LoopQuadrant
       if is_piece_moving
 
         # check if there is a collision with a piece
-        # print "coordinate: #{coordinate.x}, #{coordinate.y}\n"
-        # print "from: #{from.x}, #{from.y}\n"
-        # print "square: #{board.get_square(coordinate).is_empty}\n"
         if !board.get_square(coordinate).is_empty && !(coordinate.x == from.x && coordinate.y == from.y)
           return board.get_square(coordinate)
         end

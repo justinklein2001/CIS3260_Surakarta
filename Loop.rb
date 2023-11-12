@@ -1,10 +1,10 @@
 class Loop
   attr_accessor :quadrants
-  
+
   def initialize(quadrants)
     @quadrants = quadrants
   end
-  
+
   # Returns a boolean indicating whether a looping path to a piece exists
   # from the start to the end.
   def find_looping_path_to_piece(from, to, board, player)
@@ -53,7 +53,7 @@ class Loop
         next
       end
 
-      # if ended on own piece then stop looking 
+      # if ended on own piece then stop looking
       if end_square.get_piece.get_owner == player
         break
 
@@ -81,38 +81,29 @@ class Loop
     # look through quadrants in reverse order
     quadrants.each do |quadrant|
 
-      # print "quadrant first coordinate #{quadrant.loop_coordinates[0].x}, #{quadrant.loop_coordinates[0].y}\n"
 
       # get last square hit in quadrant
       end_square = quadrant.can_reach_start_of_quadrant(from, board, is_first_loop)
-      # print "end square: #{end_square.get_location.x}, #{end_square.get_location.y}\n"
       is_first_loop = true
 
       # check if piece goes through a loop
-      # print "start: #{start.x}, #{start.y}\n"
       if quadrant.is_loop_between(start, end_square.get_location)
-        # print "loop is between\n"
         has_gone_through_loop = true
       end
 
       # if end of quadrant move on to next one
       if end_square.is_empty
-        # print "end square is empty\n"
         # set start to be begining of next quadrant
         start = end_square.get_location
         next
       end
 
-      # if ended on own piece then stop looking 
+      # if ended on own piece then stop looking
       if end_square.get_piece.get_owner == player
-        # print "end square is player\n"
         break
 
       # if ended on opponent piece
       elsif end_square.get_piece.get_owner != player
-
-        # print "end square is opp\n"
-        # print "location: #{end_square.get_location.x}, #{end_square.get_location.y}\n"
 
         # if end location is goal location return true and piece has gone through a loop
         if end_square.get_location.x == to.x && end_square.get_location.y == to.y && has_gone_through_loop
@@ -128,4 +119,4 @@ class Loop
     return false
 
   end
-end    
+end
