@@ -2,6 +2,14 @@
 
 For CIS 3260 M3, we implemented Surakata, a Ruby-based implementation of an Indonesian strategy board game for two players, named after the ancient city of Surakarta in central Java.
 
+Usage:
+ruby Surakarta.rb
+
+Automate full game:
+chmod +x automate_game.sh
+./automate_game.sh
+
+
 ## Team Members
 
 Justin Klein<br />

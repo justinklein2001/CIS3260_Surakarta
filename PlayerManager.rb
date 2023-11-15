@@ -2,7 +2,7 @@
 # Date: 2023-11-02
 
 class PlayerManager
-  attr_accessor :current_player
+  attr_accessor :current_player, :players
     def initialize(players)
       if players.length != 2 
         raise ArgumentError, "PlayerManager requires an array of two Player enumeration values."

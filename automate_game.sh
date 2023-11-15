@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Set the path to your Ruby program
-RUBY_PROGRAM="test.rb"
+RUBY_PROGRAM="Surakarta.rb"
 
 # Set the path to your input file
 INPUT_FILE="./input.txt"

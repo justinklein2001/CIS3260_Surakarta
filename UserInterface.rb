@@ -16,7 +16,7 @@ class UserInterface
     def make_move()
 
         move_done = false
-        while @game.check_for_winner != false
+        while @game.check_for_winner == nil
 
             while move_done == false
                 player = @game.player_manager.get_current_player
@@ -34,7 +34,8 @@ class UserInterface
                 input = gets
                 if input.nil? || input.empty? || input.strip.empty?
                     display_invalid_input_error()
-                    move_done = false
+                    # move_done = false
+                    move_done = true
                 # input is valid
                 elsif @validator.input_is_coordinate(input) == true
                     input = input.chomp # remove newline
@@ -86,6 +87,8 @@ class UserInterface
             move_done = false
 
         end
+
+        display_winner(@game.player_manager.current_player)
     end
 
     # Displays the winner of the game to the user
