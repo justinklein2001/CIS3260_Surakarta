@@ -1,3 +1,6 @@
+# Harir AL-Rubaye
+# Date: 2023-11-02
+
 class PlayerManager
   attr_accessor :current_player
     def initialize(players)
